@@ -1,0 +1,1077 @@
+{
+  "info": {
+    "name": "Ethiopian Calendar & Business Date API",
+    "description": "Complete API for Ethiopian Calendar conversion, holiday management, and business date calculations",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": "2.0.0"
+  },
+  "item": [
+    {
+      "name": "1. Core Date Conversion",
+      "item": [
+        {
+          "name": "Gregorian to Ethiopian",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has success true\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.success).to.be.true;",
+                  "});",
+                  "",
+                  "pm.test(\"Ethiopian date is valid\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.data.ethiopian).to.have.property('year');",
+                  "    pm.expect(jsonData.data.ethiopian).to.have.property('month');",
+                  "    pm.expect(jsonData.data.ethiopian).to.have.property('day');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/conversion/gregorian-to-ethiopian?year=2024&month=1&day=1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "conversion", "gregorian-to-ethiopian"],
+              "query": [
+                {
+                  "key": "year",
+                  "value": "2024"
+                },
+                {
+                  "key": "month",
+                  "value": "1"
+                },
+                {
+                  "key": "day",
+                  "value": "1"
+                }
+              ]
+            },
+            "description": "Convert Gregorian date to Ethiopian calendar date"
+          },
+          "response": []
+        },
+        {
+          "name": "Ethiopian to Gregorian",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response has success true\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.success).to.be.true;",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/conversion/ethiopian-to-gregorian?year=2016&month=4&day=12",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "conversion", "ethiopian-to-gregorian"],
+              "query": [
+                {
+                  "key": "year",
+                  "value": "2016"
+                },
+                {
+                  "key": "month",
+                  "value": "4"
+                },
+                {
+                  "key": "day",
+                  "value": "12"
+                }
+              ]
+            },
+            "description": "Convert Ethiopian date to Gregorian calendar date"
+          },
+          "response": []
+        },
+        {
+          "name": "Today's Date",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains both Gregorian and Ethiopian dates\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.data).to.have.property('gregorian');",
+                  "    pm.expect(jsonData.data).to.have.property('ethiopian');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/conversion/today?locale=en",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "conversion", "today"],
+              "query": [
+                {
+                  "key": "locale",
+                  "value": "en"
+                }
+              ]
+            },
+            "description": "Get current Ethiopian and Gregorian dates"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "2. Ethiopian Calendar Features",
+      "item": [
+        {
+          "name": "Get Month Calendar",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Calendar has correct month data\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.data).to.have.property('month');",
+                  "    pm.expect(jsonData.data).to.have.property('calendar');",
+                  "    pm.expect(jsonData.data.calendar).to.be.an('array');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/calendar/month-calendar?year=2016&month=1&locale=en",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "calendar", "month-calendar"],
+              "query": [
+                {
+                  "key": "year",
+                  "value": "2016"
+                },
+                {
+                  "key": "month",
+                  "value": "1"
+                },
+                {
+                  "key": "locale",
+                  "value": "en"
+                }
+              ]
+            },
+            "description": "Generate full Ethiopian month calendar"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Month Calendar (Amharic)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/calendar/month-calendar?year=2016&month=1&locale=am",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "calendar", "month-calendar"],
+              "query": [
+                {
+                  "key": "year",
+                  "value": "2016"
+                },
+                {
+                  "key": "month",
+                  "value": "1"
+                },
+                {
+                  "key": "locale",
+                  "value": "am"
+                }
+              ]
+            },
+            "description": "Generate month calendar with Amharic labels"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Year Calendar",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Year calendar has 13 months\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.data.months).to.have.lengthOf(13);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/calendar/year-calendar?year=2016&locale=en",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "calendar", "year-calendar"],
+              "query": [
+                {
+                  "key": "year",
+                  "value": "2016"
+                },
+                {
+                  "key": "locale",
+                  "value": "en"
+                }
+              ]
+            },
+            "description": "Generate complete Ethiopian year calendar"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Day Information",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains day details\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.data).to.have.property('ethiopian');",
+                  "    pm.expect(jsonData.data).to.have.property('gregorian');",
+                  "    pm.expect(jsonData.data.ethiopian).to.have.property('weekday');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/calendar/day-info?year=2016&month=4&day=12&locale=en",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "calendar", "day-info"],
+              "query": [
+                {
+                  "key": "year",
+                  "value": "2016"
+                },
+                {
+                  "key": "month",
+                  "value": "4"
+                },
+                {
+                  "key": "day",
+                  "value": "12"
+                },
+                {
+                  "key": "locale",
+                  "value": "en"
+                }
+              ]
+            },
+            "description": "Get comprehensive day information"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Week Information",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains week number\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.data).to.have.property('weekNumber');",
+                  "    pm.expect(jsonData.data).to.have.property('weekday');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/calendar/week-info?year=2016&month=4&day=12&locale=en",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "calendar", "week-info"],
+              "query": [
+                {
+                  "key": "year",
+                  "value": "2016"
+                },
+                {
+                  "key": "month",
+                  "value": "4"
+                },
+                {
+                  "key": "day",
+                  "value": "12"
+                },
+                {
+                  "key": "locale",
+                  "value": "en"
+                }
+              ]
+            },
+            "description": "Get week number and weekday information"
+          },
+          "response": []
+        },
+        {
+          "name": "Validate Pagume Date",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains Pagume validation\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.data).to.have.property('isValid');",
+                  "    pm.expect(jsonData.data).to.have.property('isLeapYear');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/calendar/validate-pagume?year=2016&day=6",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "calendar", "validate-pagume"],
+              "query": [
+                {
+                  "key": "year",
+                  "value": "2016"
+                },
+                {
+                  "key": "day",
+                  "value": "6"
+                }
+              ]
+            },
+            "description": "Validate if Pagume date exists in given year"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "3. Holiday Management",
+      "item": [
+        {
+          "name": "Get All Holidays for Year",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains holidays array\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.data).to.have.property('holidays');",
+                  "    pm.expect(jsonData.data.holidays).to.be.an('array');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/holidays/all?year=2016&locale=en",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "holidays", "all"],
+              "query": [
+                {
+                  "key": "year",
+                  "value": "2016"
+                },
+                {
+                  "key": "locale",
+                  "value": "en"
+                }
+              ]
+            },
+            "description": "Get all Ethiopian public holidays for a year"
+          },
+          "response": []
+        },
+        {
+          "name": "Check if Date is Holiday",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains holiday status\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.data).to.have.property('isHoliday');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/holidays/check?year=2016&month=1&day=1&locale=en",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "holidays", "check"],
+              "query": [
+                {
+                  "key": "year",
+                  "value": "2016"
+                },
+                {
+                  "key": "month",
+                  "value": "1"
+                },
+                {
+                  "key": "day",
+                  "value": "1"
+                },
+                {
+                  "key": "locale",
+                  "value": "en"
+                }
+              ]
+            },
+            "description": "Check if a specific date is a holiday"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Upcoming Holidays",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains upcoming holidays\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.data).to.have.property('upcomingHolidays');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/holidays/upcoming?year=2016&month=4&day=12&limit=5&locale=en",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "holidays", "upcoming"],
+              "query": [
+                {
+                  "key": "year",
+                  "value": "2016"
+                },
+                {
+                  "key": "month",
+                  "value": "4"
+                },
+                {
+                  "key": "day",
+                  "value": "12"
+                },
+                {
+                  "key": "limit",
+                  "value": "5"
+                },
+                {
+                  "key": "locale",
+                  "value": "en"
+                }
+              ]
+            },
+            "description": "Get list of upcoming holidays from a date"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Religious Holidays",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains religious holidays\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.data).to.have.property('religiousHolidays');",
+                  "    pm.expect(jsonData.data.religiousHolidays).to.have.property('Fasika');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/holidays/religious?year=2016&locale=en",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "holidays", "religious"],
+              "query": [
+                {
+                  "key": "year",
+                  "value": "2016"
+                },
+                {
+                  "key": "locale",
+                  "value": "en"
+                }
+              ]
+            },
+            "description": "Get movable religious holidays (Fasika, Genna, Timket, etc.)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Fasika (Easter) Date",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/holidays/fasika?year=2016",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "holidays", "fasika"],
+              "query": [
+                {
+                  "key": "year",
+                  "value": "2016"
+                }
+              ]
+            },
+            "description": "Get Fasika (Easter) date for Ethiopian year"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "4. Business Date Features",
+      "item": [
+        {
+          "name": "Check Working Day",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains working day status\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.data).to.have.property('isWorkingDay');",
+                  "    pm.expect(jsonData.data).to.have.property('status');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/business/check-working-day?year=2016&month=4&day=12&includeHolidayDetails=true",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "business", "check-working-day"],
+              "query": [
+                {
+                  "key": "year",
+                  "value": "2016"
+                },
+                {
+                  "key": "month",
+                  "value": "4"
+                },
+                {
+                  "key": "day",
+                  "value": "12"
+                },
+                {
+                  "key": "includeHolidayDetails",
+                  "value": "true"
+                }
+              ]
+            },
+            "description": "Check if date is a working day (not weekend or holiday)"
+          },
+          "response": []
+        },
+        {
+          "name": "Calculate Working Days Between Dates",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains working days count\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.data).to.have.property('workingDays');",
+                  "    pm.expect(jsonData.data).to.have.property('totalDays');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/business/working-days-between?startYear=2016&startMonth=1&startDay=1&endYear=2016&endMonth=12&endDay=30&excludeHolidays=true",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "business", "working-days-between"],
+              "query": [
+                {
+                  "key": "startYear",
+                  "value": "2016"
+                },
+                {
+                  "key": "startMonth",
+                  "value": "1"
+                },
+                {
+                  "key": "startDay",
+                  "value": "1"
+                },
+                {
+                  "key": "endYear",
+                  "value": "2016"
+                },
+                {
+                  "key": "endMonth",
+                  "value": "12"
+                },
+                {
+                  "key": "endDay",
+                  "value": "30"
+                },
+                {
+                  "key": "excludeHolidays",
+                  "value": "true"
+                }
+              ]
+            },
+            "description": "Calculate number of working days between two dates"
+          },
+          "response": []
+        },
+        {
+          "name": "Find Next Working Day",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains next working date\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.data).to.have.property('workingDate');",
+                  "    pm.expect(jsonData.data).to.have.property('daysSkipped');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/business/next-working-day?year=2016&month=4&day=12&daysToAdd=5&excludeHolidays=true",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "business", "next-working-day"],
+              "query": [
+                {
+                  "key": "year",
+                  "value": "2016"
+                },
+                {
+                  "key": "month",
+                  "value": "4"
+                },
+                {
+                  "key": "day",
+                  "value": "12"
+                },
+                {
+                  "key": "daysToAdd",
+                  "value": "5"
+                },
+                {
+                  "key": "excludeHolidays",
+                  "value": "true"
+                }
+              ]
+            },
+            "description": "Find next working day (skip weekends and holidays)"
+          },
+          "response": []
+        },
+        {
+          "name": "Find Previous Working Day",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/business/previous-working-day?year=2016&month=4&day=12&daysToSubtract=3&excludeHolidays=true",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "business", "previous-working-day"],
+              "query": [
+                {
+                  "key": "year",
+                  "value": "2016"
+                },
+                {
+                  "key": "month",
+                  "value": "4"
+                },
+                {
+                  "key": "day",
+                  "value": "12"
+                },
+                {
+                  "key": "daysToSubtract",
+                  "value": "3"
+                },
+                {
+                  "key": "excludeHolidays",
+                  "value": "true"
+                }
+              ]
+            },
+            "description": "Find previous working day (skip weekends and holidays)"
+          },
+          "response": []
+        },
+        {
+          "name": "Calculate Settlement Date (Banking)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains settlement date\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.data).to.have.property('settlementDate');",
+                  "    pm.expect(jsonData.data).to.have.property('settlementDays');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/business/settlement-date?year=2016&month=4&day=12&settlementDays=2",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "business", "settlement-date"],
+              "query": [
+                {
+                  "key": "year",
+                  "value": "2016"
+                },
+                {
+                  "key": "month",
+                  "value": "4"
+                },
+                {
+                  "key": "day",
+                  "value": "12"
+                },
+                {
+                  "key": "settlementDays",
+                  "value": "2"
+                }
+              ]
+            },
+            "description": "Calculate banking settlement date (T+2 by default)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Fiscal Year Information",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/business/fiscal-year?year=2016&month=4&day=12",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "business", "fiscal-year"],
+              "query": [
+                {
+                  "key": "year",
+                  "value": "2016"
+                },
+                {
+                  "key": "month",
+                  "value": "4"
+                },
+                {
+                  "key": "day",
+                  "value": "12"
+                }
+              ]
+            },
+            "description": "Get fiscal year information for a given date"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Detailed Working Days List",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response contains working days list\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.data).to.have.property('workingDays');",
+                  "    pm.expect(jsonData.data.workingDays).to.be.an('array');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/business/working-days-list?startYear=2016&startMonth=1&startDay=1&endYear=2016&endMonth=1&endDay=15&excludeHolidays=true",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "business", "working-days-list"],
+              "query": [
+                {
+                  "key": "startYear",
+                  "value": "2016"
+                },
+                {
+                  "key": "startMonth",
+                  "value": "1"
+                },
+                {
+                  "key": "startDay",
+                  "value": "1"
+                },
+                {
+                  "key": "endYear",
+                  "value": "2016"
+                },
+                {
+                  "key": "endMonth",
+                  "value": "1"
+                },
+                {
+                  "key": "endDay",
+                  "value": "15"
+                },
+                {
+                  "key": "excludeHolidays",
+                  "value": "true"
+                }
+              ]
+            },
+            "description": "Get detailed list of all working days between dates"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "5. Error Handling Examples",
+      "item": [
+        {
+          "name": "Invalid Ethiopian Date",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/conversion/ethiopian-to-gregorian?year=2016&month=13&day=7",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "conversion", "ethiopian-to-gregorian"],
+              "query": [
+                {
+                  "key": "year",
+                  "value": "2016"
+                },
+                {
+                  "key": "month",
+                  "value": "13"
+                },
+                {
+                  "key": "day",
+                  "value": "7"
+                }
+              ]
+            },
+            "description": "Test invalid Pagume date (non-leap year)"
+          },
+          "response": []
+        },
+        {
+          "name": "Missing Parameters",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/conversion/gregorian-to-ethiopian?year=2024&month=1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "conversion", "gregorian-to-ethiopian"],
+              "query": [
+                {
+                  "key": "year",
+                  "value": "2024"
+                },
+                {
+                  "key": "month",
+                  "value": "1"
+                }
+              ]
+            },
+            "description": "Test missing day parameter"
+          },
+          "response": []
+        },
+        {
+          "name": "Invalid Month Range",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/calendar/month-calendar?year=2016&month=14",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "calendar", "month-calendar"],
+              "query": [
+                {
+                  "key": "year",
+                  "value": "2016"
+                },
+                {
+                  "key": "month",
+                  "value": "14"
+                }
+              ]
+            },
+            "description": "Test invalid month (should be 1-13)"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    }
+  ]
+}
